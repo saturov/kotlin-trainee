@@ -1,11 +1,12 @@
 package ru.strv.kotlin_trainee
 
+import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.widget.Toast
-import kotlinx.android.synthetic.main.activity_main.*
+import org.jetbrains.anko.find
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,15 +22,20 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initRecyclerView()
+        toast("Сообщение")
     }
 
     fun initRecyclerView() {
-        val forecastList = forecast_list as RecyclerView
+        val forecastList: RecyclerView = find(R.id.forecast_list)
         forecastList.layoutManager = LinearLayoutManager(this)
         forecastList.adapter = ForecastListAdapter(items)
     }
 
-    fun toast(message: String, length: Int = Toast.LENGTH_SHORT) {
+    /*fun toast(message: String, length: Int = Toast.LENGTH_SHORT) {
         Toast.makeText(this, message, length).show()
+    }*/
+
+    fun Context.toast(message: CharSequence, duration: Int = android.widget.Toast.LENGTH_SHORT) {
+        Toast.makeText(this, message, duration).show()
     }
 }
